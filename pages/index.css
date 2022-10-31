@@ -4,13 +4,21 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/header/__line/header__line.css);
-
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__description/profile__description.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/edit/edit.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__img/element__img.css);
 @import url(../blocks/element/__group/element__group.css);
 @import url(../blocks/element/__name/element__name.css);
-@import url(../blocks/element/__like/element__like.css);
-@import url(../blocks/element/__like/_active/element__like_active.css);
+@import url(../blocks/element/__like-button/element__like-button.css);
+@import url(../blocks/element/__like-button/_active/element__like-button_active.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
