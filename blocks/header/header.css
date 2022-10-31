@@ -1,8 +1,7 @@
 .header{
   width: calc(100% - 2 * 200px);
   min-height: 74px;
-  margin: 0 auto;
-  padding-bottom: 56px;
+  margin: 0 auto 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
