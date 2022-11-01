@@ -2,19 +2,18 @@
   margin: 0;
   padding: 0;
   border: none;
-  background-image: url(../../../images/add-button.svg);
   width: 150px;
   height: 50px;
-  background-color: #000;
+  background: #000 url(../../../images/add-button.svg);
 }
 
 
 .profile__add-button:hover{
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
-@media screen and (max-width: 1300px){
+@media screen and (max-width: 1200px){
   .profile__add-button{
     background-image: url(../../../images/add-button-width.svg);
     width: 282px;

@@ -26,15 +26,6 @@
       </div>
       <button type="button" class="profile__add-button"></button>
     </section>
-    <div class="edit">
-      <form class="edit__form">
-        <button type="button" class="edit__close-button"></button>
-        <h2 class="edit__form-name">Редактировать профиль</h2>
-        <input class="edit__name" type="text" value="Жак-Ив Кусто">
-        <input class="edit__description" type="text" value="Исследователь океана">
-        <button type="submit" class="edit__save-button" value="Сохранить"></button>
-      </form>
-    </div>
     <section class="elements">
       <div class="element">
         <img class="element__img" src="./images/karachaevsk.png" alt="Карачаевск">
@@ -83,5 +74,19 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+  <div class="popup">
+    <form class="popup__container">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__header">Редактировать профиль</h2>
+      <div class="popup__name">
+        <input class="popup__name-input" type="text" value="Жак-Ив Кусто">
+      </div>
+      <div class="popup__description">
+        <input class="popup__description-input" type="text" value="Исследователь океана">
+      </div>
+      <button type="submit" class="popup__save-button" value="Сохранить"></button>
+    </form>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>

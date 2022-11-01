@@ -4,7 +4,7 @@
   max-height: 73px;
 }
 
-@media screen and (max-width: 1300px){
+@media screen and (max-width: 1200px){
   .profile__info{
     text-align: center;
     max-height: 100%;
