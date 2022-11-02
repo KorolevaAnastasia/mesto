@@ -1,3 +1,4 @@
 .element__like-button_active{
-  background-image: url("../../../../images/like-black.svg");
+  background: rgba(0,0,0, 0) url("../../../../images/like-black.svg") no-repeat;
+  background-size: contain;
 }

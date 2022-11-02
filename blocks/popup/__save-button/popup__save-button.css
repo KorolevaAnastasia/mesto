@@ -1,13 +1,19 @@
 .popup__save-button{
   display: block;
   padding: 0;
-  margin: 0 auto 37px auto;
+  margin: 0 auto;
   width: 358px;
   height: 50px;
   border:none;
-  background-image: url("../../../images/save-button.svg");
+  background-size: contain;
   cursor: pointer;
   border-radius: 2px;
+  background-color: #000;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
 }
 
 .popup__save-button:hover{
@@ -18,8 +24,8 @@
   .popup__save-button{
     width: 238px;
     height: 46px;
-    margin: 0 auto 25px auto;
-    background-image: url("../../../images/save-button-s.svg");
+    font-size: 14px;
+    line-height: 17px;
   }
 }
 

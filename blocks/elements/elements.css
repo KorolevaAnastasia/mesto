@@ -1,6 +1,5 @@
 .elements{
   width: calc(100% - 2 * 200px);
-  min-height: 744px;
   margin: 0 auto;
   padding-bottom: 67px;
   display: grid;
@@ -24,6 +23,7 @@
 
 @media screen and (max-width: 390px){
   .elements{
+    padding-bottom: 48px;
     width: calc(100% - 2 * 19px);
   }
 }

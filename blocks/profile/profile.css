@@ -1,10 +1,9 @@
 .profile{
   width: calc(100% - 2 * 200px);
-  min-height: 120px;
   margin: 0 auto;
   padding-bottom: 50px;
   display: grid;
-  grid-template-columns: calc(120px + 30px) calc(100% - 150px * 2) 150px;
+  grid-template-columns: min-content calc(100% - 150px * 2) min-content;
   align-items: center;
 }
 

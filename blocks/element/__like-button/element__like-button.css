@@ -4,8 +4,8 @@
   width: 22px;
   height: 19px;
   border:none;
-  background-image: url("../../../images/like.svg");
-  background-color: #fff;
+  background: rgba(255,255,255, 0) url("../../../images/like.svg") no-repeat;
+  background-size: contain;
 }
 
 .element__like-button:hover{
