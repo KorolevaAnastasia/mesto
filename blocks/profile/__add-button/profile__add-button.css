@@ -4,7 +4,7 @@
   border: none;
   width: 150px;
   height: 50px;
-  background: #000 url(../../../images/add-button.svg);
+  background: rgba(0,0,0,0) url(../../../images/add-button.svg);
 }
 
 

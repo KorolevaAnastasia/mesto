@@ -4,16 +4,21 @@
   margin: 0 auto;
   padding-bottom: 50px;
   display: grid;
-  grid-template-columns: calc(120px + 30px) 1fr 150px;
+  grid-template-columns: calc(120px + 30px) calc(100% - 150px * 2) 150px;
   align-items: center;
 }
 
 @media screen and (max-width: 1200px){
   .profile{
-    width: calc(100% - 2 * 50px);
     padding-bottom: 36px;
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 850px){
+  .profile{
+    width: calc(100% - 2 * 50px);
   }
 }
 
