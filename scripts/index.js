@@ -19,7 +19,7 @@ function formSubmitHandler (evt) {
 
 function popupOpened () {
   popup.classList.add('popup_opened');
-  inputProfileText();
+  inputPopupText();
 }
 
 function popupClosed () {
@@ -29,7 +29,11 @@ function popupClosed () {
 function inputProfileText(){
   nameText.textContent = nameInput.value;
   jobText.textContent = jobInput.value;
+}
 
+function inputPopupText(){
+  nameInput.textContent = nameText.value;
+  jobInput.textContent = jobText.value;
 }
 
 
