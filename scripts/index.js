@@ -32,8 +32,8 @@ function inputProfileText(){
 }
 
 function inputPopupText(){
-  nameInput.textContent = nameText.value;
-  jobInput.textContent = jobText.value;
+  nameInput.value = nameText.textContent;
+  jobInput.value = jobText.textContent;
 }
 
 
