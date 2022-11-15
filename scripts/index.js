@@ -36,13 +36,13 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const elementAddButton = document.querySelector('.profile__add-button');
 
 let popupImg = document.querySelector('.popup__img');
-let popupEditProfileSection = document.querySelector('.popup__edit-profile');
+let popupEditProfileSection = document.querySelector('.popup-edit-profile');
 let profileEditNameInput = document.querySelector('.popup__form-text_type_name');
 let profileEditJobInput = document.querySelector('.popup__form-text_type_job');
 let profileNameText = document.querySelector('.profile__name');
 let profileJobText = document.querySelector('.profile__job');
-let popupAddElementSection = document.querySelector('.popup__add-element');
-let popupOpenImgSection = document.querySelector('.popup__open-img');
+let popupAddElementSection = document.querySelector('.popup-add-element');
+let popupOpenImgSection = document.querySelector('.popup-open-img');
 let popupImgViewDesc = document.querySelector('.popup__description');
 
 initialCards.forEach(el => createTempCard(el));
