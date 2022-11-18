@@ -16,6 +16,7 @@ const profileNameText = document.querySelector('.profile__name');
 const profileJobText = document.querySelector('.profile__job');
 const imageNameInput = document.querySelector('.popup__form-text_type_element');
 const imageLinkInput = document.querySelector('.popup__form-text_type_link');
+const elementLikeButton = document.querySelector('.element__like-button');
 
 initialCards.forEach(el => {
   const newCard = createCard(el);
@@ -23,7 +24,7 @@ initialCards.forEach(el => {
 });
 
 profileEditButton.addEventListener('click', el => {
-  openProfilePopup(profilePopup);
+  openProfilePopup();
 });
 
 elementAddButton.addEventListener('click', el => {
@@ -46,9 +47,9 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function openProfilePopup(popup) {
+function openProfilePopup() {
   replaceProfileText();
-  openPopup(popup);
+  openPopup(profilePopup);
 }
 
 function replaceProfileInputText(){
@@ -89,34 +90,31 @@ function submitFormElementHandler(evt){
 
 function createCard(element){
   const cloneTemplate = elementTemplate.querySelector('.element').cloneNode(true);
+  const elementDeleteButton = cloneTemplate.querySelector('.element__delete-button');
+  const elementLikeButton = cloneTemplate.querySelector('.element__like-button');
   const elementImg = cloneTemplate.querySelector('.element__img');
 
   elementImg.src = element.link;
   elementImg.alt = element.name;
   cloneTemplate.querySelector('.element__name').textContent = element.name;
-  cloneTemplate.addEventListener('click', (element) => {
 
-    const targetElement = element.target;
-    const targetFirstElementClass = targetElement.classList[0];
-
-    switch (targetFirstElementClass) {
-      case 'element__like-button':
-        targetElement.classList.toggle('element__like-button_active');
-        break;
-      case 'element__delete-button':
-        targetElement.closest('.element').remove();
-        break;
-      case 'element__img':
-        createImgPopup(targetElement);
-        break;
-    }
-  });
+  elementDeleteButton.addEventListener('click', () => deleteCard(elementDeleteButton));
+  elementLikeButton.addEventListener('click',() => toggleLikeForCard(elementLikeButton));
+  elementImg.addEventListener('click', () =>createImgPopup(elementImg));
 
   return cloneTemplate;
 }
 
-function renderCard(newCard){
-  elementsBlock.prepend(newCard);
+function deleteCard(element){
+  element.closest('.element').remove();
+}
+
+function toggleLikeForCard(element){
+  element.classList.toggle('element__like-button_active');
+}
+
+function renderCard(newElement){
+  elementsBlock.prepend(newElement);
 }
 
 function createImgPopup(element){
