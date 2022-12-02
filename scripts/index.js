@@ -16,18 +16,18 @@ const profileNameText = document.querySelector('.profile__name');
 const profileJobText = document.querySelector('.profile__job');
 const imageNameInput = document.querySelector('.popup__form-text_type_element');
 const imageLinkInput = document.querySelector('.popup__form-text_type_link');
-const elementLikeButton = document.querySelector('.element__like-button');
+const overlayPopupList = document.querySelectorAll('.popup__overlay');
 
 initialCards.forEach(el => {
   const newCard = createCard(el);
   renderCard(newCard);
 });
 
-profileEditButton.addEventListener('click', el => {
+profileEditButton.addEventListener('click', () => {
   openProfilePopup();
 });
 
-elementAddButton.addEventListener('click', el => {
+elementAddButton.addEventListener('click', () => {
   openPopup(cardPopup);
 });
 
@@ -36,19 +36,25 @@ buttonCloseList.forEach(btn => {
   btn.addEventListener('click', () => closePopup(popup));
 });
 
+overlayPopupList.forEach(element => {
+  const popup = element.closest('.popup');
+  element.addEventListener('click', () => closePopup(popup));
+});
+
 profileForm.addEventListener('submit', submitFormProfileHandler);
 elementForm.addEventListener('submit', submitFormElementHandler);
 
 function openPopup(element) {
   element.classList.add('popup_opened');
+  addEscListener(element);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  removeEscListener(popup);
 }
 
 function openProfilePopup() {
-  replaceProfileText();
   openPopup(profilePopup);
 }
 
@@ -57,16 +63,10 @@ function replaceProfileInputText(){
   profileJobText.textContent = profileJobInput.value;
 }
 
-function replaceProfileText(){
-  profileNameInput.value = profileNameText.textContent;
-  profileJobInput.value = profileJobText.textContent;
-}
-
 function clearFormElementInput(){
   imageNameInput.value = '';
   imageLinkInput.value = '';
 }
-
 
 function submitFormProfileHandler(evt){
   evt.preventDefault();
@@ -122,7 +122,23 @@ function createImgPopup(element){
   imagePopup.alt = element.alt;
   imagePopupDescription.textContent = element.alt;
   imgPopup.classList.add('popup_opened');
+  addEscListener(imgPopup);
 }
+
+function keyHandler(key, popup) {
+  if (key.code === 'Escape')
+    closePopup(popup);
+}
+
+function addEscListener(popup){
+  document.addEventListener('keydown', key => keyHandler(key, popup));
+}
+
+function removeEscListener(popup){
+  document.removeEventListener('keydown', key => keyHandler(key, popup));
+}
+
+
 
 
 

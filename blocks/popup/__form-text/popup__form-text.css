@@ -1,7 +1,7 @@
 .popup__form-text{
-  width: calc(100% - 2 * 36px);
+  width: 100%;
   border: none;
-  color: #000;
+  color: var(--text-color-dark);
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   font-weight: 400;
@@ -11,10 +11,5 @@
   padding: 0 0 8px;
 }
 
-@media screen and (max-width: 700px) {
-  .popup__form-text {
-    width: calc(100% - 2 * 22px);
-  }
-}
 
 
