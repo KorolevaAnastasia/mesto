@@ -10,12 +10,12 @@ const imagePopupDescription = document.querySelector('.popup__description');
 const buttonCloseList = document.querySelectorAll('.popup__close-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const elementAddButton = document.querySelector('.profile__add-button');
-const profileNameInput = document.querySelector('.popup__form-text_type_name');
-const profileJobInput = document.querySelector('.popup__form-text_type_job');
+const profileNameInput = document.querySelector('.popup__input_type_name');
+const profileJobInput = document.querySelector('.popup__input_type_job');
 const profileNameText = document.querySelector('.profile__name');
 const profileJobText = document.querySelector('.profile__job');
-const imageNameInput = document.querySelector('.popup__form-text_type_element');
-const imageLinkInput = document.querySelector('.popup__form-text_type_link');
+const imageNameInput = document.querySelector('.popup__input_type_element');
+const imageLinkInput = document.querySelector('.popup__input_type_link');
 const overlayPopupList = document.querySelectorAll('.popup__overlay');
 
 initialCards.forEach(el => {

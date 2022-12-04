@@ -1,4 +1,4 @@
-.popup__form-text{
+.popup__input {
   width: 100%;
   border: none;
   color: var(--text-color-dark);
@@ -10,6 +10,3 @@
   margin: 0 auto;
   padding: 0 0 8px;
 }
-
-
-
