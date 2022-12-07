@@ -15,10 +15,10 @@ const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) 
 const toggleSubmitButton = (inputList, submitButton, inactiveButtonClass) => {
   if(hasInvalidInput(inputList)) {
     submitButton.classList.add(inactiveButtonClass);
-    submitButton.attr = 'disabled';
+    submitButton.disabled = true;
   } else {
     submitButton.classList.remove(inactiveButtonClass);
-    submitButton.removeAttribute('disabled');
+    submitButton.disabled = false;
   }
 };
 
