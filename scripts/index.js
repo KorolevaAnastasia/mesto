@@ -1,153 +1,98 @@
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
+import * as data from "../utils/constants.js";
 
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const formSettings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
-export const imagePopupDescription = document.querySelector('.popup__card-description');
-export const imagePopup = document.querySelector('.popup-card-open');
-export const cardImage = document.querySelector('.popup__card-img');
-
-const cardsBlock = document.querySelector('.cards');
-const cardPopup = document.querySelector('.popup-card');
-const profilePopup = document.querySelector('.popup-profile');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const cardAddButton = document.querySelector('.profile__card-button');
-const buttonCloseList = document.querySelectorAll('.popup__close-button');
-const overlayPopupList = document.querySelectorAll('.popup__overlay');
-const profileForm = document.querySelector('.popup__form-profile');
-const cardForm = document.querySelector('.popup__form-card');
-const profileNameInput = document.querySelector('.popup__input_type_name');
-const profileJobInput = document.querySelector('.popup__input_type_job');
-const profileNameText = document.querySelector('.profile__name');
-const profileJobText = document.querySelector('.profile__job');
-const cardNameInput = document.querySelector('.popup__input_type_card');
-const cardLinkInput = document.querySelector('.popup__input_type_link');
-const profileValidator = new FormValidator(formSettings, profilePopup);
-const cardValidator = new FormValidator(formSettings, cardPopup);
+const profileValidator = new FormValidator(data.formSettings, data.profilePopup);
+const cardValidator = new FormValidator(data.formSettings, data.cardPopup);
 
 profileValidator.enableValidation();
 cardValidator.enableValidation();
 
-initialCards.forEach(el => {
-  const cardElement = new Card(el, '#default-card');
-  const newCard = cardElement.generateCard();
+data.initialCards.forEach(el => {
+  const newCard = createCard(el);
   renderCard(newCard);
 });
 
-profileEditButton.addEventListener('click', () => {
+data.profileEditButton.addEventListener('click', () => {
   openProfilePopup();
 });
 
-cardAddButton.addEventListener('click', () => {
+data.cardAddButton.addEventListener('click', () => {
   openCardPopup();
 });
 
-buttonCloseList.forEach(btn => {
+data.buttonCloseList.forEach(btn => {
   const popup = btn.closest('.popup');
   btn.addEventListener('click', () => closePopup(popup));
 });
 
-overlayPopupList.forEach(element => {
+data.overlayPopupList.forEach(element => {
   const popup = element.closest('.popup');
   element.addEventListener('click', () => closePopup(popup));
 });
 
-profileForm.addEventListener('submit', handleSubmitProfileForm);
-cardForm.addEventListener('submit', handleSubmitCardForm);
+data.profileForm.addEventListener('submit', handleSubmitProfileForm);
+data.cardForm.addEventListener('submit', handleSubmitCardForm);
 
+function createCard(data) {
+  const cardElement = new Card(data, '#default-card', handleCardClick);
+  return cardElement.generateCard();
+}
+
+function handleCardClick(name, link) {
+  data.cardImage.src = link;
+  data.cardImage.alt = name;
+  data.imagePopupDescription.textContent = name;
+  openPopup(data.imagePopup);
+}
 
 function saveProfileData(){
-  profileNameText.textContent = profileNameInput.value;
-  profileJobText.textContent = profileJobInput.value;
+  data.profileNameText.textContent = data.profileNameInput.value;
+  data.profileJobText.textContent = data.profileJobInput.value;
 }
 
 function fillProfileFormInputs(){
-  profileNameInput.value = profileNameText.textContent;
-  profileJobInput.value = profileJobText.textContent;
+  data.profileNameInput.value = data.profileNameText.textContent;
+  data.profileJobInput.value = data.profileJobText.textContent;
 }
 
 function clearFormCardInput(){
-  cardForm.reset();
+  data.cardForm.reset();
 }
 
 function handleSubmitProfileForm(evt){
   evt.preventDefault();
   saveProfileData();
-  closePopup(profilePopup);
+  closePopup(data.profilePopup);
 }
 
 function handleSubmitCardForm(evt){
   evt.preventDefault();
 
   const cardData = {
-    name: cardNameInput.value,
-    link: cardLinkInput.value
+    name: data.cardNameInput.value,
+    link: data.cardLinkInput.value
   };
 
-  const card = new Card(cardData, '#default-card');
-
-  renderCard(card.generateCard());
-  closePopup(cardPopup);
+  const card = createCard(cardData);
+  renderCard(card);
+  closePopup(data.cardPopup);
 }
 
-function renderCard(newCard){
-  cardsBlock.prepend(newCard);
+function renderCard(card){
+  data.cardsBlock.prepend(card);
 }
 
 function openProfilePopup() {
   fillProfileFormInputs();
-  resetValidation(profileForm, profileValidator);
-  openPopup(profilePopup);
+  profileValidator.resetValidation();
+  openPopup(data.profilePopup);
 }
 
 function openCardPopup() {
   clearFormCardInput();
-  resetValidation(cardForm, cardValidator);
-  openPopup(cardPopup);
-}
-
-function resetValidation(form, validator) {
-  const formInputList = Array.from(form.querySelectorAll('input'));
-  if (validator.hasErrorClass(formInputList, 'popup__input_type_error')) {
-    formInputList.forEach(() => {
-      validator.hideInputError();
-    });
-  }
-  validator.toggleSubmitButton();
+  cardValidator.resetValidation();
+  openPopup(data.cardPopup);
 }
 
 export function openPopup(popup) {
@@ -173,6 +118,7 @@ function handleEscKeydown(evt) {
     closePopup(popup);
   }
 }
+
 
 
 

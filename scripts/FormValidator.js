@@ -2,7 +2,7 @@ export class FormValidator {
   constructor(validationConfig, formElement) {
     this._validationConfig = validationConfig;
     this._formElement = formElement;
-    this._formList = Array.from(this._validationConfig.formSelector);
+    this._formList = Array.from(this._formElement.querySelectorAll(this._validationConfig.formSelector));
     this._inputList = Array.from(this._formElement.querySelectorAll(this._validationConfig.inputSelector));
     this._submitButton = this._formElement.querySelector(this._validationConfig.submitButtonSelector);
   }
@@ -35,10 +35,6 @@ export class FormValidator {
     return this._inputList.some(input => !input.validity.valid)
   };
 
-  hasErrorClass() {
-    return this._inputList.some(input => input.classList.contains(this._validationConfig.inputErrorClass))
-  };
-
   toggleSubmitButton(){
     if(this.hasInvalidInput(this._inputList)) {
       this.disableButton();
@@ -65,6 +61,13 @@ export class FormValidator {
     });
   }
 
+  resetValidation() {
+    this.toggleSubmitButton();
+    this._inputList.forEach((inputElement) => {
+      this.hideInputError(inputElement);
+    });
+  }
+
   enableValidation(){
     this._formList.forEach(() => {
       this._formElement.addEventListener('submit', (evt) =>  {
@@ -74,3 +77,4 @@ export class FormValidator {
     });
   }
 }
+
