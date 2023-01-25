@@ -39,11 +39,11 @@ export class Card {
     });
   }
 
-  _handleLikeEvent (){
+  _handleLikeEvent() {
     this._likeBtn.classList.toggle('card__like-button_active');
   }
 
-  _handleDeleteEvent (){
+  _handleDeleteEvent() {
     this._deleteBtn.closest('.card').remove();
   }
 

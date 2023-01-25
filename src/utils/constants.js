@@ -34,24 +34,15 @@ export const formSettings = {
   errorClass: 'popup__error_visible'
 };
 
-export const imagePopupDescription = document.querySelector('.popup__card-description');
 export const imagePopup = document.querySelector('.popup-card-open');
-export const cardImage = document.querySelector('.popup__card-img');
-
 export const cardsBlock = document.querySelector('.cards');
 export const cardPopup = document.querySelector('.popup-card');
 export const profilePopup = document.querySelector('.popup-profile');
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const cardAddButton = document.querySelector('.profile__card-button');
-export const buttonCloseList = document.querySelectorAll('.popup__close-button');
-export const overlayPopupList = document.querySelectorAll('.popup__overlay');
-export const profileForm = document.querySelector('.popup__form-profile');
-export const cardForm = document.querySelector('.popup__form-card');
 export const profileNameInput = document.querySelector('.popup__input_type_name');
 export const profileJobInput = document.querySelector('.popup__input_type_job');
 export const profileNameText = document.querySelector('.profile__name');
 export const profileJobText = document.querySelector('.profile__job');
-export const cardNameInput = document.querySelector('.popup__input_type_card');
-export const cardLinkInput = document.querySelector('.popup__input_type_link');
 
 
