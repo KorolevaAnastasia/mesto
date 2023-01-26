@@ -7,6 +7,7 @@ import {UserInfo} from "../components/UserInfo.js";
 import {Section} from "../components/Section.js";
 import {FormValidator} from "../components/FormValidator.js";
 import * as data from "../utils/constants.js";
+import {initialCards} from "../utils/constants.js";
 
 //valid
 const formValidators = {}
@@ -14,7 +15,6 @@ const formValidators = {}
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    console.log(formElement);
     const validator = new FormValidator(config, formElement);
     const formName = formElement.getAttribute('name');
 
@@ -35,21 +35,17 @@ const profileData = new UserInfo({
   job: '.profile__job'
 });
 
-const initialCards = (items) => {
-  const newCard = new Section({
-      items: items,
+const cardSection = new Section({
+      items: data.initialCards,
       renderer: (cardData) => {
         const cardElement = createCard(cardData);
-        newCard.addItem(cardElement);
+        cardSection.addItem(cardElement);
       }
     },
     '.cards'
-  );
+);
 
-  newCard.render();
-}
-
-initialCards(data.initialCards);
+cardSection.render();
 
 //listeners
 profileForm.setEventListeners();
@@ -87,7 +83,8 @@ function handleCardClick(name, link) {
 }
 
 function handleSubmitCardForm(cardData)  {
-  initialCards([cardData]);
+  const cardElement = createCard(cardData);
+  cardSection.addItem(cardElement);
   imageForm.close();
 }
 
