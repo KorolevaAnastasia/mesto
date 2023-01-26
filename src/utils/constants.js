@@ -35,14 +35,11 @@ export const formSettings = {
 };
 
 export const imagePopup = document.querySelector('.popup-card-open');
-export const cardsBlock = document.querySelector('.cards');
 export const cardPopup = document.querySelector('.popup-card');
 export const profilePopup = document.querySelector('.popup-profile');
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const cardAddButton = document.querySelector('.profile__card-button');
 export const profileNameInput = document.querySelector('.popup__input_type_name');
 export const profileJobInput = document.querySelector('.popup__input_type_job');
-export const profileNameText = document.querySelector('.profile__name');
-export const profileJobText = document.querySelector('.profile__job');
 
 

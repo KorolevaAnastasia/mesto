@@ -8,90 +8,91 @@ import {Section} from "../components/Section.js";
 import {FormValidator} from "../components/FormValidator.js";
 import * as data from "../utils/constants.js";
 
-//validators
-const profileValidator = new FormValidator(data.formSettings, data.profilePopup);
-profileValidator.enableValidation();
+//valid
+const formValidators = {}
 
-const cardValidator = new FormValidator(data.formSettings, data.cardPopup);
-cardValidator.enableValidation();
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    console.log(formElement);
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
 
-//user_info
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(data.formSettings);
+
+//init_classes
+const profileForm = new PopupWithForm('.popup-profile', handleSubmitProfileForm);
+const imagePopup = new PopupWithImage('.popup-card-open');
+const imageForm = new PopupWithForm('.popup-card', handleSubmitCardForm);
+
 const profileData = new UserInfo({
-  name: data.profileNameText,
-  job: data.profileJobText
+  name: '.profile__name',
+  job: '.profile__job'
 });
 
-//user_form
-const profileForm = new PopupWithForm(data.profilePopup, handleSubmitProfileForm);
-data.profileEditButton.addEventListener('click', () => {
-  openProfilePopup();
-});
+const initialCards = (items) => {
+  const newCard = new Section({
+      items: items,
+      renderer: (cardData) => {
+        const cardElement = createCard(cardData);
+        newCard.addItem(cardElement);
+      }
+    },
+    '.cards'
+  );
 
-//img_popup
-const imagePopup = new PopupWithImage(data.imagePopup);
+  newCard.render();
+}
 
-//init_card
-const imageForm = new PopupWithForm(data.cardPopup, handleSubmitCardForm);
-const initialCards = new Section({
-    items: data.initialCards,
-    renderer: (cardData) => {
-      const newCard = new Card(cardData, '#default-card', handleCardClick);
-      const cardElement = newCard.generateCard();
-      initialCards.addItem(cardElement);
-    }
-  },
-  data.cardsBlock
-);
+initialCards(data.initialCards);
 
-initialCards.render();
+//listeners
+profileForm.setEventListeners();
 imageForm.setEventListeners();
+imagePopup.setEventListeners();
 
-//card_form
 data.cardAddButton.addEventListener('click', () => {
   openCardPopup();
 });
 
+data.profileEditButton.addEventListener('click', () => {
+  openProfilePopup();
+});
 
 //func
+function createCard(item) {
+  const newCard = new Card(item, '#default-card', handleCardClick);
+  return newCard.generateCard();
+}
+
 function openCardPopup() {
-  cardValidator.resetValidation();
+  formValidators['card'].resetValidation();
   imageForm.open();
-}
-
-function handleSubmitCardForm(newCardData)  {
-  const newCards = new Section({
-      items: [newCardData],
-      renderer: (cardData) => {
-        const newCard = new Card(cardData, '#default-card', handleCardClick);
-        const cardElement = newCard.generateCard();
-        newCards.addItem(cardElement);
-      }
-    },
-    data.cardsBlock
-  );
-  newCards.render();
-  imageForm.close();
-}
-
-function handleCardClick(name, link) {
-  imagePopup.setEventListeners();
-  imagePopup.open(name, link);
 }
 
 function openProfilePopup() {
   const currentProfileData = profileData.getUserInfo();
-  data.profileNameInput.value = currentProfileData.name;
-  data.profileJobInput.value = currentProfileData.job;
-  profileValidator.resetValidation();
-  profileForm.setEventListeners();
+  profileForm.setInputValues(currentProfileData);
+  formValidators['profile'].resetValidation();
   profileForm.open();
 }
 
-function handleSubmitProfileForm()  {
-  profileData.setUserInfo({
-    name: data.profileNameInput.value,
-    job: data.profileJobInput.value
-  });
+function handleCardClick(name, link) {
+  imagePopup.open(name, link);
+}
+
+function handleSubmitCardForm(cardData)  {
+  initialCards([cardData]);
+  imageForm.close();
+}
+
+function handleSubmitProfileForm(data)  {
+  profileData.setUserInfo(data);
 }
 
 

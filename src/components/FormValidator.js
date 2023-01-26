@@ -2,7 +2,6 @@ export class FormValidator {
   constructor(validationConfig, formElement) {
     this._validationConfig = validationConfig;
     this._formElement = formElement;
-    this._formList = Array.from(this._formElement.querySelectorAll(this._validationConfig.formSelector));
     this._inputList = Array.from(this._formElement.querySelectorAll(this._validationConfig.inputSelector));
     this._submitButton = this._formElement.querySelector(this._validationConfig.submitButtonSelector);
   }
@@ -69,12 +68,10 @@ export class FormValidator {
   }
 
   enableValidation()  {
-    this._formList.forEach(() => {
-      this._formElement.addEventListener('submit', (evt) =>  {
-        evt.preventDefault();
-      });
-      this._setEventListeners();
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
     });
+    this._setEventListeners();
   }
 }
 
