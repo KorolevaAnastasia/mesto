@@ -1,5 +1,5 @@
 export class Card {
-  constructor({object, templateSelector, handleCardRemove}, handleCardClick, userId, api) {
+  constructor({object, templateSelector, handleCardRemove}, handleCardClick, userId, handleLikeCard, handleDislikeCard) {
     this._name = object.name;
     this._link = object.link;
     this._likes = object.likes;
@@ -7,10 +7,10 @@ export class Card {
     this._ownerId = object.owner._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleLikeCard = handleLikeCard;
+    this._handleDislikeCard = handleDislikeCard;
     this._handleCardRemove = handleCardRemove;
     this._userId = userId;
-
-    this._api = api;
   }
 
   _getTemplate() {
@@ -61,24 +61,21 @@ export class Card {
   }
 
   _handleLikeEvent() {
+    this._likeBtn.classList.toggle('.card__like-button_active');
     if(this._likeBtn.classList.contains('card__like-button_active')){
-      this._api.dislikeCard(this._cardId)
+      this._handleDislikeCard(this._cardId)
         .then((res) => {
           this._likeBtn.classList.remove('card__like-button_active');
           this._likeCounter.textContent = res.likes.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
     } else {
-      this._api.likeCard(this._cardId)
+      this._handleLikeCard(this._cardId)
         .then((res) => {
           this._likeBtn.classList.add('card__like-button_active');
           this._likeCounter.textContent = res.likes.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
     }
   }
 }

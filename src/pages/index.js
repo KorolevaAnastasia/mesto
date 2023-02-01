@@ -9,7 +9,6 @@ import {UserInfo} from "../components/UserInfo.js";
 import {Section} from "../components/Section.js";
 import {FormValidator} from "../components/FormValidator.js";
 import * as data from "../utils/constants.js";
-import {cardLikeButton} from "../utils/constants.js";
 
 //valid
 const formValidators = {}
@@ -57,26 +56,19 @@ const api = new Api({
   }
 });
 
-
 //загрузка карточек и данных пользователя
 let userId;
-api.getUserProfileData()
-  .then((res) => {
-    profileData.setUserInfo(res);
-    profileData.setUserAvatar(res.avatar);
-    userId = res._id;
+Promise.all([api.getUserProfileData(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    profileData.setUserInfo(userData);
+    profileData.setUserAvatar(userData.avatar);
+    userId = userData._id;
+
+    cardSection.render(cards);
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
-
-api.getInitialCards()
-  .then((res) => {
-    cardSection.render(res);
-  })
-  .catch((err) => {
-    console.log(err);
-});
 
 
 //listeners
@@ -132,7 +124,7 @@ function createCard(item) {
       });
       cardRemovePopup.open();
     }
-  }, handleCardClick, userId, api);
+  }, handleCardClick, userId, api.likeCard.bind(api), api.dislikeCard.bind(api));
   return newCard.generateCard();
 }
 
@@ -141,46 +133,33 @@ function handleCardClick(name, link) {
 }
 
 function handleSubmitCardForm(cardData) {
-  imageForm.renderDataLoading(true);
-  api.addCard(cardData)
+  return api.addCard(cardData)
     .then((res) => {
       const cardElement = createCard(res);
       cardSection.addItem(cardElement);
-      imageForm.close();
     })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
-      imageForm.renderDataLoading(false);
     });
 }
 
 function handleSubmitAvatarForm(userData) {
-  avatarForm.renderDataLoading(true);
-  api.changeUserProfileAvatar(userData)
+  return api.changeUserProfileAvatar(userData)
     .then((res) => {
       profileData.setUserAvatar(res.avatar);
     })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
-      avatarForm.renderDataLoading(false);
     });
 }
 
 function handleSubmitProfileForm(data) {
-  profileForm.renderDataLoading(true);
-  api.updateUserProfileData(data)
+  return api.updateUserProfileData(data)
     .then((res) => {
       profileData.setUserInfo(res);
     })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
-      profileForm.renderDataLoading(false);
     });
 }
 

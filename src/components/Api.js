@@ -83,6 +83,6 @@ export class Api {
     if (res.ok)
       return res.json();
 
-    return console.log(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка ${res.status}`);
   }
 }
